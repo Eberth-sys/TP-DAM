@@ -12,7 +12,7 @@
     <ion-card-content>
       <hr />
       <p *ngIf="ultimaMedicion">
-        Humedad: {{ ultimaMedicion.valor }}% <br />
+        Humedad: {{ ultimaMedicion.humedad }}% <br />
         Fecha: {{ ultimaMedicion.fecha | date:'medium' }}
       </p>
       <p *ngIf="!ultimaMedicion">

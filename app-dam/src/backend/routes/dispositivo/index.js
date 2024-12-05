@@ -22,20 +22,18 @@ routerDispositivo.get('/', (req, res) => {
 
 //ruta Función ultima medición.
 routerDispositivo.get('/:id/ultima-medicion', (req, res) => {
-    const dispositivoId = req.params.id;
-    pool.query(
-      'SELECT * FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC LIMIT 1',
-      [dispositivoId],
-      (err, results) => {
-        if (err) {
-          res.status(500).send({ error: 'Error al obtener la última medición' });
-        } else if (results.length === 0) {
-          res.status(404).send({ mensaje: 'No hay mediciones disponibles' });
-        } else {
-          res.status(200).send(results[0]);
-        }
-      }
-    );
-  });
+  const dispositivoId = req.params.id;
+
+  //Simulación con match.random 
+  const SimulacionMedicion = {
+    dispositivoId: dispositivoId,
+    humedad: Math.floor(Math.random() * (100 - 10 + 1)) + 10, // Genero la condición entre el rango de 0 a 100
+    fecha: new Date().toISOString(), // Obtengo la fecha que me servirá par aguardar este dato
+  };
+
+  console.log('Test medir random:', SimulacionMedicion); // Log para verificar
+  res.status(200).send(SimulacionMedicion);
+});
+
   
 module.exports = routerDispositivo;
