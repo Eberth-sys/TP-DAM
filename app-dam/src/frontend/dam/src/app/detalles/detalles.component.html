@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalles del Dispositivo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="dispositivo">
+    <ion-card-header>
+      <ion-card-title>{{ dispositivo.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Ubicación del sensor:</strong> {{ dispositivo.ubicacion }}</p> 
+      <p><strong>Electroválvula:</strong> {{ dispositivo.electrovalvulaId }}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block" color="primary" (click)="volverAlInicio()">
+    Volver al Inicio
+  </ion-button> 
+</ion-content>

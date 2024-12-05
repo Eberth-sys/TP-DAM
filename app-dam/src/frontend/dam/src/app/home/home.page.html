@@ -13,7 +13,7 @@
   </ion-header>
 
   <!-- Listado de Dispositivos -->
-  <ion-card *ngFor="let dispositivo of dispositivos">
+  <ion-card *ngFor="let dispositivo of dispositivos" (click)="verDetalles(dispositivo.dispositivoId)">
     <ion-card-header>
       <ion-card-title>{{ dispositivo.nombre }}</ion-card-title>
     </ion-card-header>

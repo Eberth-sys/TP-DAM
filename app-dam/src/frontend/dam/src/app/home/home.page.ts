@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular'; // Importa IonicModule
 import { DispositivoService } from '../services/dispositivo.service'; //Importo desde la carpta servicios
 import { Dispositivo } from '../models/dispositivo.model'; //Importo desde la carpta models
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; //Importo la liberia de router
 
 
 @Component({
@@ -15,8 +16,12 @@ import { CommonModule } from '@angular/common';
 export class HomePage implements OnInit {
   dispositivos: Dispositivo[] = []; // Lista de dispositivos
 
-  constructor(private dispositivoService: DispositivoService) {}
+  constructor(private router: Router, private dispositivoService: DispositivoService) {} //importo router
   
+  verDetalles(dispositivoId: number) {
+    this.router.navigate(['/dispositivo', dispositivoId]);
+  }
+
   ngOnInit() {
     // obtener los dispositivos 
     this.dispositivoService.getDispositivos().subscribe(
