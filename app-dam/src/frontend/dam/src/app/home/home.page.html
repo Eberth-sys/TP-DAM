@@ -1,3 +1,24 @@
-<p>
-  home works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>TP DAM - Eberth Alarcón</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condese">
+    <ion-toolbar>
+      <ion-title size="large">Listado de Dispositivos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Listado de Dispositivos -->
+  <ion-card *ngFor="let dispositivo of dispositivos">
+    <ion-card-header>
+      <ion-card-title>{{ dispositivo.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Ubicación: {{ dispositivo.ubicacion }}</p>
+    </ion-card-content>
+  </ion-card>
+  
