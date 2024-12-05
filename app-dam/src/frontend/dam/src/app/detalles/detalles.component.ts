@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class DetallesComponent implements OnInit {
   dispositivoId!: number; // ID del dispositivo recibido desde la URL
   dispositivo?: Dispositivo; // Detalle del dispositivo
+  ultimaMedicion?: any // propieda de la func de ultima medici´on.
 
   constructor( private router: Router, private route: ActivatedRoute, private dispositivoService: DispositivoService) {}
 
@@ -37,6 +38,16 @@ export class DetallesComponent implements OnInit {
       this.dispositivo = data.find(
         (d) => d.dispositivoId === this.dispositivoId
       );
+    });
+
+    // Funcinalidad para la última medición
+    this.dispositivoService.getUltimaMedicion(this.dispositivoId).subscribe({
+      next: (data) => {
+        this.ultimaMedicion = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener la última medición:', err);
+      },
     });
   }
 }

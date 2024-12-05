@@ -10,7 +10,16 @@
       <ion-card-title>{{ dispositivo.nombre }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Ubicación del sensor:</strong> {{ dispositivo.ubicacion }}</p> 
+      <hr />
+      <p *ngIf="ultimaMedicion">
+        Humedad: {{ ultimaMedicion.valor }}% <br />
+        Fecha: {{ ultimaMedicion.fecha | date:'medium' }}
+      </p>
+      <p *ngIf="!ultimaMedicion">
+        No hay mediciones disponibles.
+      </p>
+      <hr />
+      <p><strong>Ubicación:</strong> {{ dispositivo.ubicacion }}</p> 
       <p><strong>Electroválvula:</strong> {{ dispositivo.electrovalvulaId }}</p>
     </ion-card-content>
   </ion-card>

@@ -15,5 +15,13 @@ export class DispositivoService {
   getDispositivos(): Observable<Dispositivo[]> {
     return this.http.get<Dispositivo[]>(this.apiUrl);
   }
+
+  // Método para obtener la última medición de un dispositivo
+  getUltimaMedicion(dispositivoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${dispositivoId}/ultima-medicion`);
+  }
+
 }
+
+
 
