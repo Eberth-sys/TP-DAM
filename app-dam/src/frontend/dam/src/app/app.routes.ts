@@ -11,6 +11,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./detalles/detalles.component').then((m) => m.DetallesComponent),
   },
+// ruta para el historial
+  {
+    path: 'dispositivo/:id/historial',
+    loadComponent: () =>
+      import('./historial/historial.component').then((m) => m.HistorialComponent),
+  },
+  
   {
     path: '',
     redirectTo: 'home', //precargo los componentes.

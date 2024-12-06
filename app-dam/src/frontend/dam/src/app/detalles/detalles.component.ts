@@ -4,14 +4,15 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { DispositivoService } from '../services/dispositivo.service';
 import { Dispositivo } from '../models/dispositivo.model';
-import { Router } from '@angular/router';
+import { Router , RouterModule} from '@angular/router';
+
 
 @Component({
   selector: 'app-detalles',
   templateUrl: 'detalles.component.html',
   styleUrls: ['detalles.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule, RouterModule],
 })
 export class DetallesComponent implements OnInit {
   dispositivoId!: number; // ID del dispositivo recibido desde la URL

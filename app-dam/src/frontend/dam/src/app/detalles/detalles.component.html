@@ -23,6 +23,11 @@
       <p><strong>Electroválvula:</strong> {{ dispositivo.electrovalvulaId }}</p>
     </ion-card-content>
   </ion-card>
+
+  <ion-button expand="block" color="secondary" [routerLink]="'/dispositivo/' + dispositivo?.dispositivoId + '/historial'">
+    Ver Historial de Mediciones
+  </ion-button>
+  
   <ion-button expand="block" color="primary" (click)="volverAlInicio()">
     Volver al Inicio
   </ion-button> 

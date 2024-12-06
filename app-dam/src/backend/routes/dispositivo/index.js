@@ -35,5 +35,25 @@ routerDispositivo.get('/:id/ultima-medicion', (req, res) => {
   res.status(200).send(SimulacionMedicion);
 });
 
+// Ruta para obtener el historial de mediciones del dispositivo
+routerDispositivo.get('/:id/historial-mediciones', (req, res) => {
+  const dispositivoId = req.params.id;
+
+  // Consulta para obtener el historial de mediciones del dispositivo
+  pool.query(
+    'SELECT * FROM Mediciones WHERE dispositivoId = ? ORDER BY fecha DESC',
+    [dispositivoId],
+    (err, results) => {
+      if (err) {
+        console.error('Error al obtener el historial de mediciones:', err);
+        res.status(500).send({ error: 'Error al obtener el historial de mediciones' });
+      } else {
+        res.status(200).send(results);
+      }
+    }
+  );
+});
+
+
   
 module.exports = routerDispositivo;

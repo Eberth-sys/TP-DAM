@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Dispositivo } from '../models/dispositivo.model'; // traigo desde la carpeta models
+import { Medicion } from '../models/medicion.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,13 @@ export class DispositivoService {
     return this.http.get<any>(`${this.apiUrl}/${dispositivoId}/ultima-medicion`);
   }
 
+  // Método  historial de mediciones 
+  getHistorialMediciones(dispositivoId: number): Observable<any[]> {
+    const url = `${this.apiUrl}/${dispositivoId}/historial-mediciones`; // Construir la URL
+    return this.http.get<any[]>(url); // Realizar la solicitud GET
+  }
+
+ 
 }
 
 
