@@ -60,7 +60,7 @@ routerDispositivo.post('/:id/accion-valvula', (req, res) => {
   const { accion } = req.body; // Campo recibido desde el frontend
 
   // Convertir 'abrir' y 'cerrar' a valores numéricos para apertura
-  const apertura = accion === 'abrir' ? 1 : accion === 'cerrar' ? 0 : null;
+  const apertura = accion === 'Abierta' ? 1 : accion === 'Cerrada' ? 0 : null;
 
   if (apertura === null) {
     return res.status(400).send({ error: 'Acción inválida. Debe ser "abrir" o "cerrar".' });
