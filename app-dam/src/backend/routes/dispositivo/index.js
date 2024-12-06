@@ -112,7 +112,7 @@ routerDispositivo.post('/:id/accion-valvula', async (req, res) => {
 
     res.status(200).send({
       message: `Válvula ${accion} registrada exitosamente.`,
-      medicion: `Humedad: ${medicion.humedad} %`,
+      humedad: medicion.humedad,
     });
   } catch (error) {
     console.error('Error interno al accionar la válvula:', error.message);
