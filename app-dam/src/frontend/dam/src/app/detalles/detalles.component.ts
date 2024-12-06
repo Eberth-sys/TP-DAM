@@ -18,6 +18,7 @@ export class DetallesComponent implements OnInit {
   dispositivoId!: number; // ID del dispositivo recibido desde la URL
   dispositivo?: Dispositivo; // Detalle del dispositivo
   ultimaMedicion?: any // propieda de la func de ultima medici´on.
+  historial: any[] = []; // Lista para el historial de mediciones recargado
 
   constructor( private router: Router, private route: ActivatedRoute, private dispositivoService: DispositivoService) {}
 
@@ -30,6 +31,7 @@ export class DetallesComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.dispositivoId = +params['id']; // Obtengo el ID desde la URL
       this.obtenerDetallesDispositivo();
+      this.cargarHistorial(); //actualizar el historial con el resgitro de la valvula.
     });
   }
 
@@ -58,6 +60,7 @@ export class DetallesComponent implements OnInit {
       .then((response) => {
         console.log('Acción realizada:', response);
         alert(`Estado de la Válvula ha sido "[${accion}]" exitosamente. \nHumedad registrada: ${response.humedad}%`);
+        this.cargarHistorial(); //recargho el historial
       })
       .catch((error) => {
         console.error('Error al accionar la válvula:', error);
@@ -65,5 +68,16 @@ export class DetallesComponent implements OnInit {
       });
   }
   
+  //Actualizar el historial de mediciones
+  cargarHistorial() {
+    this.dispositivoService.getHistorialMediciones(this.dispositivoId).subscribe({
+      next: (data) => {
+        this.historial = data; // Asignar el historial
+      },
+      error: (err) => {
+        console.error('Error al cargar el historial de mediciones:', err);
+      },
+    });
+  }
   
 }
