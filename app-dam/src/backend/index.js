@@ -1,6 +1,7 @@
 //=======[ Settings, Imports & Data ]==========================================
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser'); // Importar body-parser
 
 var pool = require('./mysql-connector');
 const app = express();
@@ -15,6 +16,8 @@ const routerDispositivo = require('./routes/dispositivo'); // Ruta a /routes/dis
 
 // Registrar rutas
 app.use('/dispositivo', routerDispositivo);
+app.use(bodyParser.json()); // Habilitar JSON parsing
+app.use(bodyParser.urlencoded({ extended: true })); // Habilitar URL-encoded parsing
 
 //=======[ Main module code ]==================================================
 

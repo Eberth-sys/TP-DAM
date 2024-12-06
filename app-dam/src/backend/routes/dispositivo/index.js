@@ -54,6 +54,49 @@ routerDispositivo.get('/:id/historial-mediciones', (req, res) => {
   );
 });
 
+//ruta control de valvula
+routerDispositivo.post('/:id/accion-valvula', (req, res) => {
+  const dispositivoId = req.params.id; // ID del dispositivo
+  const { accion } = req.body; // Campo recibido desde el frontend
+
+  // Convertir 'abrir' y 'cerrar' a valores numéricos para apertura
+  const apertura = accion === 'abrir' ? 1 : accion === 'cerrar' ? 0 : null;
+
+  if (apertura === null) {
+    return res.status(400).send({ error: 'Acción inválida. Debe ser "abrir" o "cerrar".' });
+  }
+
+  // Paso 1: Buscar el dispositivo en la base de datos
+  pool.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?', [dispositivoId], (err, dispositivo) => {
+    if (err) {
+      console.error('Error al consultar la base de datos:', err);
+      return res.status(500).send({ error: 'Error interno del servidor al buscar el dispositivo' });
+    }
+
+    if (dispositivo.length === 0) {
+      return res.status(404).send({ error: 'Dispositivo no encontrado' });
+    }
+
+    const electrovalvulaId = dispositivo[0].electrovalvulaId;
+
+    // Paso 2: Insertar el log del riego en la tabla Log_Riegos
+    pool.query(
+      'INSERT INTO Log_Riegos (apertura, fecha, electrovalvulaId) VALUES (?, NOW(), ?)',
+      [apertura, electrovalvulaId],
+      (err, result) => {
+        if (err) {
+          console.error('Error al insertar el log del riego:', err);
+          return res.status(500).send({ error: 'Error interno del servidor al registrar el log' });
+        }
+
+        res.status(200).send({ message: `Válvula ${accion} exitosamente.` });
+      }
+    );
+  });
+});
+
+
+
 
   
 module.exports = routerDispositivo;

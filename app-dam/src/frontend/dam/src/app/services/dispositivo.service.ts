@@ -28,8 +28,15 @@ export class DispositivoService {
     return this.http.get<any[]>(url); // Realizar la solicitud GET
   }
 
+  //Metodo para accionar la valvula
+  accionarValvula(dispositivoId: number, accion: string): Promise<any> {
+    const url = `${this.apiUrl}/${dispositivoId}/accion-valvula`;
+    return this.http.post(url, { accion }).toPromise();
+  }
+  
+  
+  
  
 }
-
 
 
