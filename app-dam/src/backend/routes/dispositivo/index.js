@@ -1,6 +1,7 @@
 const express = require('express');
 const routerDispositivo = express.Router();
 const pool = require('../../mysql-connector'); // Conexión a MySQL
+const { procesarFecha } = require('../../utils/fecha'); //import el pipeline de fecha
 
 // Ruta GET para obtener todos los dispositivos
 routerDispositivo.get('/', (req, res) => {
@@ -20,16 +21,36 @@ routerDispositivo.get('/', (req, res) => {
     });
 });
 
+//Función para simular una medicion aleatoria con Math.random.
+
+function MedicionAleatoria(dispositivoId) {
+  const fechaactual = new Date();
+  return {
+    dispositivoId: dispositivoId,
+    humedad: Math.floor(Math.random() * (100 - 10 + 1)) + 10, // Genero la condición entre el rango de 0 a 100
+    fecha: procesarFecha(fechaactual), // Obtengo la fecha que me servirá par aguardar este dato
+  };
+}
+
+// Función para convertir `pool.query` a promesas
+function queryAsync(sql, params) {
+  return new Promise((resolve, reject) => {
+    pool.query(sql, params, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
 //ruta Función ultima medición.
 routerDispositivo.get('/:id/ultima-medicion', (req, res) => {
   const dispositivoId = req.params.id;
 
-  //Simulación con match.random 
-  const SimulacionMedicion = {
-    dispositivoId: dispositivoId,
-    humedad: Math.floor(Math.random() * (100 - 10 + 1)) + 10, // Genero la condición entre el rango de 0 a 100
-    fecha: new Date().toISOString(), // Obtengo la fecha que me servirá par aguardar este dato
-  };
+  // Traigo el valor de la funcion MedicionAleatoria
+  const SimulacionMedicion = MedicionAleatoria(dispositivoId);
 
   console.log('Test medir random:', SimulacionMedicion); // Log para verificar
   res.status(200).send(SimulacionMedicion);
@@ -55,48 +76,49 @@ routerDispositivo.get('/:id/historial-mediciones', (req, res) => {
 });
 
 //ruta control de valvula
-routerDispositivo.post('/:id/accion-valvula', (req, res) => {
-  const dispositivoId = req.params.id; // ID del dispositivo
-  const { accion } = req.body; // Campo recibido desde el frontend
+routerDispositivo.post('/:id/accion-valvula', async (req, res) => {
+  const dispositivoId = req.params.id;
+  const { accion } = req.body;
 
-  // Convertir 'abrir' y 'cerrar' a valores numéricos para apertura
   const apertura = accion === 'Abierta' ? 1 : accion === 'Cerrada' ? 0 : null;
 
   if (apertura === null) {
-    return res.status(400).send({ error: 'Acción inválida. Debe ser "abrir" o "cerrar".' });
+    return res.status(400).send({ error: 'Debe ser "Abierta" o "Cerrada".' });
   }
 
-  // Paso 1: Buscar el dispositivo en la base de datos
-  pool.query('SELECT * FROM Dispositivos WHERE dispositivoId = ?', [dispositivoId], (err, dispositivo) => {
-    if (err) {
-      console.error('Error al consultar la base de datos:', err);
-      return res.status(500).send({ error: 'Error interno del servidor al buscar el dispositivo' });
+  try {
+    const dispositivos = await queryAsync('SELECT * FROM Dispositivos WHERE dispositivoId = ?', [dispositivoId]);
+    if (dispositivos.length === 0) {
+      return res.status(404).send({ error: 'Dispositivo no encontrado.' });
     }
 
-    if (dispositivo.length === 0) {
-      return res.status(404).send({ error: 'Dispositivo no encontrado' });
-    }
+    const electrovalvulaId = dispositivos[0].electrovalvulaId;
+    const medicion = MedicionAleatoria(dispositivoId);
 
-    const electrovalvulaId = dispositivo[0].electrovalvulaId;
+    console.log('Intentando registrar medición:', medicion);
 
-    // Paso 2: Insertar el log del riego en la tabla Log_Riegos
-    pool.query(
-      'INSERT INTO Log_Riegos (apertura, fecha, electrovalvulaId) VALUES (?, NOW(), ?)',
-      [apertura, electrovalvulaId],
-      (err, result) => {
-        if (err) {
-          console.error('Error al insertar el log del riego:', err);
-          return res.status(500).send({ error: 'Error interno del servidor al registrar el log' });
-        }
+    await queryAsync('INSERT INTO Mediciones (fecha, valor, dispositivoId) VALUES (?, ?, ?)', [
+      medicion.fecha,
+      medicion.humedad,
+      dispositivoId,
+    ]);
 
-        res.status(200).send({ message: `Válvula ${accion} exitosamente.` });
-      }
-    );
-  });
+    console.log('Medición registrada con éxito.');
+
+    await queryAsync('INSERT INTO Log_Riegos (apertura, fecha, electrovalvulaId) VALUES (?, NOW(), ?)', [
+      apertura,
+      electrovalvulaId,
+    ]);
+
+    res.status(200).send({
+      message: `Válvula ${accion} registrada exitosamente.`,
+      medicion: `Humedad: ${medicion.humedad} %`,
+    });
+  } catch (error) {
+    console.error('Error interno al accionar la válvula:', error.message);
+    res.status(500).send({ error: 'Error interno del servidor' });
+  }
 });
 
 
-
-
-  
 module.exports = routerDispositivo;

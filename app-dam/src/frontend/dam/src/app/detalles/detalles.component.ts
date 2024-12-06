@@ -57,7 +57,7 @@ export class DetallesComponent implements OnInit {
     this.dispositivoService.accionarValvula(this.dispositivoId, accion)
       .then((response) => {
         console.log('Acción realizada:', response);
-        alert(`Estado de la Válvula ha sido "[${accion}]" exitosamente.`);
+        alert(`Estado de la Válvula ha sido "[${accion}]" exitosamente. \nHumedad registrada: ${response.humedad}%`);
       })
       .catch((error) => {
         console.error('Error al accionar la válvula:', error);
