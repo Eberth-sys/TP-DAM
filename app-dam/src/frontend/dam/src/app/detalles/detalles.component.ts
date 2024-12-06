@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular'; //Importo el componente de alerta.
 import { DispositivoService } from '../services/dispositivo.service';
 import { Dispositivo } from '../models/dispositivo.model';
 import { Router , RouterModule} from '@angular/router';
@@ -20,7 +20,7 @@ export class DetallesComponent implements OnInit {
   ultimaMedicion?: any // propieda de la func de ultima medici´on.
   historial: any[] = []; // Lista para el historial de mediciones recargado
 
-  constructor( private router: Router, private route: ActivatedRoute, private dispositivoService: DispositivoService) {}
+  constructor( private router: Router, private route: ActivatedRoute, private dispositivoService: DispositivoService, private alertController: AlertController ) {}
 
   // Función para volver a la pa´gina principal
   volverAlInicio() {
@@ -55,17 +55,44 @@ export class DetallesComponent implements OnInit {
   }
 
   //Accionar valvula funcipón
-  accionarValvula(accion: string) {
-    this.dispositivoService.accionarValvula(this.dispositivoId, accion)
-      .then((response) => {
+    // Método para accionar la válvula
+    async accionarValvula(accion: string) {
+      try {
+        const response = await this.dispositivoService.accionarValvula(
+          this.dispositivoId, accion);
         console.log('Acción realizada:', response);
-        alert(`Estado de la Válvula ha sido "[${accion}]" exitosamente. \nHumedad registrada: ${response.humedad}%`);
-        this.cargarHistorial(); //recargho el historial
-      })
-      .catch((error) => {
+  
+        // Mostrar alerta  exitoso
+        await this.presentAlert(
+          '', //Si lo boroo me da error.
+          `La válvula ha sido "[${accion}]" exitosamente.`,
+          `Humedad registrada: ${response.humedad}%`
+        );
+  
+        this.cargarHistorial(); // Recargar el historial
+      } catch (error) {
         console.error('Error al accionar la válvula:', error);
-        alert('Hubo un error al realizar la acción.');
-      });
+  
+        // Mostrar alerta estilizada con mensaje de error
+        await this.presentAlert(
+          'Error',
+          'Hubo un error al realizar la acción.',
+          'Por favor, intenta nuevamente.'
+        );
+      }
+    }
+  
+  // Me´todo para mostrar la alerta estilizada
+  async presentAlert(header: string, subHeader: string, message: string) {
+    const alert = await this.alertController.create({
+      header, // Título 
+      subHeader, 
+      message, // Mensaje principal
+      buttons: ['OK'], // Botone de la alerta
+    });
+
+    // Presenta la alerta en pantalla
+    await alert.present();
   }
   
   //Actualizar el historial de mediciones
