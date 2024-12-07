@@ -1,34 +1,172 @@
-Web App Full Stack Base - Ionic frontend
-========================================
 
-Proyecto basado en [Web App Full Stack Base](https://github.com/gotoiot/app-fullstack-base).
+---
 
-En esta extensión del proyecto se utiliza el framework ionic para realizar el frontend.
+# 🌟 Proyecto de Gestión de Sensores y Electroválvulas para la materia de Desarrollo de Aplicaciones Móviles.
 
-## Comenzando 🚀
+![Ionic + Angular + Node.js + MySQL](https://img.shields.io/badge/Tech-Ionic%20%7C%20Angular%20%7C%20Node.js%20%7C%20MySQL-blue)
 
-Esta sección es una guía con los pasos esenciales para que puedas poner en marcha la aplicación.
+## 📝 Descripción  
+Este proyecto es una **aplicación web interactiva** diseñada para gestionar sensores y electroválvulas. Incluye funciones para monitorear mediciones de humedad, realizar acciones sobre válvulas, y mantener un historial de riegos, todo con una interfaz optimizada gracias a **Ionic Components**.
 
-### Instalar las dependencias
+---
 
-Para correr este proyecto es necesario que instales `Docker` y `Docker Compose`. 
+## 🚀 Características Principales  
 
-En [este artículo](https://www.gotoiot.com/pages/articles/docker_installation_linux/) publicado en nuestra web están los detalles para instalar Docker y Docker Compose en una máquina Linux. Si querés instalar ambas herramientas en una Raspberry Pi podés seguir [este artículo](https://www.gotoiot.com/pages/articles/rpi_docker_installation) de nuestra web que te muestra todos los pasos necesarios.
+### 1️⃣ Gestión de Sensores y Válvulas  
+- **Consulta de Dispositivos**: Lista de sensores con detalles como ubicación y electroválvula asociada.  
+- **Historial de Mediciones**: Registro completo de lecturas de humedad.  
+- **Apertura y Cierre de Válvulas**: Acciones de riego con registro automático en la base de datos.  
 
-En caso que quieras instalar las herramientas en otra plataforma o tengas algún incoveniente, podes leer la documentación oficial de [Docker](https://docs.docker.com/get-docker/) y también la de [Docker Compose](https://docs.docker.com/compose/install/).
+### 2️⃣ Simulación de Mediciones  
+- **Generación Automática**: Simulación de valores de humedad mediante `Math.random`.  
 
-Continua con la descarga del código cuando tengas las dependencias instaladas y funcionando.
+### 3️⃣ Interfaz Personalizada  
+- Uso de componentes avanzados de **Ionic** (íconos, listas interactivas, botones flotantes).  
+- Feedback dinámico para acciones como apertura/cierre de válvulas.  
 
-### Ejecutar la aplicación
+### 4️⃣ Base de Datos  
+- Tablas bien estructuradas para `Dispositivos`, `Electroválvulas`, `Mediciones` y `Log_Riegos`.  
+- Relación directa entre sensores y válvulas para un control eficiente.  
 
-Para ejecutar la aplicación tenes que correr el comando `docker compose up` desde la raíz del proyecto. Este comando va a descargar las imágenes de Docker de node, de typescript, de la base datos y del admin de la DB, y luego ponerlas en funcionamiento. 
+---
 
-Para acceder al cliente web ingresa a a la URL [http://localhost:8100/](http://localhost:8100/) y para acceder al admin de la DB accedé a [localhost:8001/](http://localhost:8001/). 
+## 📂 Estructura del Proyecto  
 
-Si pudiste acceder al cliente web y al administrador significa que la aplicación se encuentra corriendo bien. 
+```
+📂 DAM
+├── 📂 db                 # Scripts SQL para la base de datos
+├── 📂 src                # Carpeta principal
+│   ├── 📂 backend        # Código del servidor Node.js
+│   │   ├── 📂 routes     # Rutas del servidor
+│   │   ├── 📂 utils      # Funciones auxiliares (e.g., pipeline de fechas)
+│   ├── 📂 frontend       # Interfaz del cliente (Ionic + Angular)
+│   │   ├── 📂 app        # Componentes y servicios
+│   │   ├── 📂 assets     # Recursos estáticos (imágenes, estilos, etc.)
+├── README.md             # Documentación del proyecto
+└── docker-compose.yml    # Configuración para contenedores Docker
+```
 
-> Si te aparece un error la primera vez que corres la app, deteńe el proceso y volvé a iniciarla. Esto es debido a que el backend espera que la DB esté creada al iniciar, y en la primera ejecución puede no alcanzar a crearse. A partir de la segunda vez el problema queda solucionado.
+---
 
-## Licencia 📄
+## 🛠️ Configuración del Entorno  
 
-Este proyecto está bajo Licencia ([MIT](https://choosealicense.com/licenses/mit/)). Podés ver el archivo [LICENSE.md](LICENSE.md) para más detalles sobre el uso de este material.
+### 1️⃣ Clonar el Repositorio  
+
+git clone https://github.com/tu-usuario/proyecto-sensores-valvulas.git
+cd proyecto-sensores-valvulas
+
+
+### 2️⃣ Configuración del Backend  
+
+# Navegar al directorio del backend
+cd src/backend
+
+# Instalar dependencias
+npm install
+
+
+### 3️⃣ Configuración del Frontend  
+
+# Navegar al directorio del frontend
+cd src/frontend/dam
+
+# Instalar dependencias
+npm install
+
+
+---
+
+## ▶️ Iniciar el Proyecto  
+
+### 1️⃣ Ejecutar el Servidor Backend  
+
+# Desde el directorio backend
+cd src/backend
+node index.js
+
+
+### 2️⃣ Levantar el Frontend  
+
+# Desde el directorio frontend
+cd src/frontend/dam
+ionic serve
+
+
+### 3️⃣ Iniciar Servicios con Docker (Opcional)  
+
+# Desde la raíz del proyecto
+docker-compose up
+
+
+---
+
+## 🌐 Uso de la Aplicación  
+
+### 1️⃣ Ingresar a la aplicación  
+- Abre tu navegador favorito y accede a: [http://localhost:8100](http://localhost:8100).  
+- Desde aquí, tendrás acceso a todas las funcionalidades de la aplicación.  
+![alt text](image.png)
+
+### 2️⃣ Ver la última medición de humedad  
+- Selecciona un dispositivo para ver detalles como la **última medición de humedad** y la fecha en la que se registró. 
+
+  🔍 **Visualiza información detallada del sensor:**   
+   ![alt text](image-1.png)
+
+### 3️⃣ Consultar el historial de mediciones  
+- Accede al historial completo de mediciones realizadas por un sensor, ordenadas cronológicamente.  
+  📊 **Revisa cómo han variado las mediciones:**  
+    ![alt text](image-2.png)
+
+### 4️⃣ Accionar las válvulas (abrir/cerrar)  
+- Usa los botones para **abrir** o **cerrar la válvula** asociada al sensor.  
+- Recibirás una confirmación en pantalla y el evento se registrará automáticamente en la base de datos.  
+  🚰 **Controla las válvulas de forma remota:**  
+   ![alt text](image-3.png)
+
+### 5️⃣ Registro automático en la base de datos  
+- Cada acción realizada (abrir/cerrar válvulas o registrar una medición) se almacena automáticamente en la base de datos.  
+  📂 **Consulta los registros en cualquier momento:**   
+   ![alt text](image-4.png)
+
+---
+
+### 🚀 ¡Listo para usar!  
+Explora, experimenta y disfruta de la gestión de tus sensores y válvulas en tiempo real con esta herramienta interactiva.
+
+
+---
+
+## 👥 Colaboradores  
+
+| Nombre            | Rol                       |  
+|-------------------|---------------------------|  
+| **Eberth Alarcón** | Desarrollo completo del proyecto |  
+
+---
+
+## 📚 Contexto Académico  
+
+Este proyecto fue desarrollado como parte de la materia **"Desarrollo de Aplicaciones Multiplataforma"**, correspondiente a la **Especialización en Internet de las Cosas (IoT)** de la **Universidad de Buenos Aires (UBA), Argentina**.  
+
+### Propósito  
+La finalidad del proyecto es implementar una solución funcional para el control y monitoreo de sensores y electroválvulas, integrando conceptos avanzados de desarrollo de software para IoT:  
+
+- **Frontend interactivo y adaptable** con **Ionic** y **Angular**.  
+- **Backend eficiente** basado en **Node.js** con conexión a una base de datos relacional **MySQL**.  
+- **Simulación de datos** para sensores de humedad, combinada con operaciones en tiempo real.  
+
+### Docente  
+**Profesor:** Pedro Rosito  
+
+### Institución  
+**Universidad de Buenos Aires (UBA)**  
+**Facultad de Ingeniería**  
+![alt text](image-5.png)
+---
+
+## 📄 Licencia  
+
+Este proyecto está bajo la licencia **[MIT](https://choosealicense.com/licenses/mit/)**. Consulta el archivo [LICENSE.md](LICENSE.md) para más detalles.  
+
+--- 
