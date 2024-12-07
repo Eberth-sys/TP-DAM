@@ -1,32 +1,47 @@
+# 🌟 Proyecto de Gestión de Sensores y Electroválvulas  
+
+![Ionic + Angular + Node.js + MySQL](https://img.shields.io/badge/Tech-Ionic%20%7C%20Angular%20%7C%20Node.js%20%7C%20MySQL-blue)  
+**Materia:** Desarrollo de Aplicaciones Multiplataforma  
+**Institución:** Universidad de Buenos Aires (UBA) – Especialización en IoT 
+
+**Trabajo Práctico Final** - Eberth Alarcón
 
 ---
 
-# 🌟 Proyecto de Gestión de Sensores y Electroválvulas para la materia de Desarrollo de Aplicaciones Móviles.
-
-![Ionic + Angular + Node.js + MySQL](https://img.shields.io/badge/Tech-Ionic%20%7C%20Angular%20%7C%20Node.js%20%7C%20MySQL-blue)
-
 ## 📝 Descripción  
-Este proyecto es una **aplicación web interactiva** diseñada para gestionar sensores y electroválvulas. Incluye funciones para monitorear mediciones de humedad, realizar acciones sobre válvulas, y mantener un historial de riegos, todo con una interfaz optimizada gracias a **Ionic Components**.
+Este proyecto es una **aplicación web interactiva** diseñada para gestionar sensores y electroválvulas. Permite:  
+
+- Monitorear mediciones de humedad.  
+- Controlar válvulas en tiempo real.  
+- Mantener un historial de riegos.  
+- Simular datos de sensores.  
+
+Desarrollado con una arquitectura **Ionic + Angular** en el frontend y **Node.js + MySQL** en el backend, esta solución combina interactividad y eficiencia para aplicaciones de IoT.  
 
 ---
 
 ## 🚀 Características Principales  
 
-### 1️⃣ Gestión de Sensores y Válvulas  
-- **Consulta de Dispositivos**: Lista de sensores con detalles como ubicación y electroválvula asociada.  
-- **Historial de Mediciones**: Registro completo de lecturas de humedad.  
-- **Apertura y Cierre de Válvulas**: Acciones de riego con registro automático en la base de datos.  
+### 🛠️ Gestión de Sensores y Válvulas  
+- Consulta detallada de dispositivos (sensores).  
+- Historial de mediciones organizadas cronológicamente.  
+- Control de válvulas: abrir/cerrar con registro automático.  
 
-### 2️⃣ Simulación de Mediciones  
-- **Generación Automática**: Simulación de valores de humedad mediante `Math.random`.  
+### 📊 Simulación de Mediciones  
+- Generación automática de valores de humedad mediante `Math.random`.  
 
-### 3️⃣ Interfaz Personalizada  
-- Uso de componentes avanzados de **Ionic** (íconos, listas interactivas, botones flotantes).  
-- Feedback dinámico para acciones como apertura/cierre de válvulas.  
+### 🎨 Interfaz Personalizada  
+- Uso de componentes avanzados de **Ionic** como:  
+  - Botones con íconos personalizados.  
+  - Listas dinámicas e interactivas.  
+  - Temas y colores intuitivos.  
 
-### 4️⃣ Base de Datos  
-- Tablas bien estructuradas para `Dispositivos`, `Electroválvulas`, `Mediciones` y `Log_Riegos`.  
-- Relación directa entre sensores y válvulas para un control eficiente.  
+### 📂 Base de Datos Relacional  
+- Diseño estructurado con tablas para:  
+  - `Dispositivos`.  
+  - `Electroválvulas`.  
+  - `Mediciones`.  
+  - `Log_Riegos`.  
 
 ---
 
@@ -38,7 +53,7 @@ Este proyecto es una **aplicación web interactiva** diseñada para gestionar se
 ├── 📂 src                # Carpeta principal
 │   ├── 📂 backend        # Código del servidor Node.js
 │   │   ├── 📂 routes     # Rutas del servidor
-│   │   ├── 📂 utils      # Funciones auxiliares (e.g., pipeline de fechas)
+│   │   ├── 📂 utils      # Funciones auxiliares (pipeline de fechas)
 │   ├── 📂 frontend       # Interfaz del cliente (Ionic + Angular)
 │   │   ├── 📂 app        # Componentes y servicios
 │   │   ├── 📂 assets     # Recursos estáticos (imágenes, estilos, etc.)
@@ -52,27 +67,24 @@ Este proyecto es una **aplicación web interactiva** diseñada para gestionar se
 
 ### 1️⃣ Clonar el Repositorio  
 
-git clone https://github.com/tu-usuario/proyecto-sensores-valvulas.git
+```bash
+git clone 
 cd proyecto-sensores-valvulas
-
+```
 
 ### 2️⃣ Configuración del Backend  
 
-# Navegar al directorio del backend
+```bash
 cd src/backend
-
-# Instalar dependencias
 npm install
-
+```
 
 ### 3️⃣ Configuración del Frontend  
 
-# Navegar al directorio del frontend
+```bash
 cd src/frontend/dam
-
-# Instalar dependencias
 npm install
-
+```
 
 ---
 
@@ -80,60 +92,45 @@ npm install
 
 ### 1️⃣ Ejecutar el Servidor Backend  
 
-# Desde el directorio backend
-cd src/backend
+```bash
+cd DAM\DAM\app-dam\src\backend 
 node index.js
-
+```
 
 ### 2️⃣ Levantar el Frontend  
 
-# Desde el directorio frontend
-cd src/frontend/dam
+```bash
+cd DAM\DAM\app-dam\src\frontend\dam>
 ionic serve
-
+```
 
 ### 3️⃣ Iniciar Servicios con Docker (Opcional)  
 
-# Desde la raíz del proyecto
+```bash
+cd DAM\DAM\app-dam>
 docker-compose up
-
+```
 
 ---
 
 ## 🌐 Uso de la Aplicación  
 
-### 1️⃣ Ingresar a la aplicación  
-- Abre tu navegador favorito y accede a: [http://localhost:8100](http://localhost:8100).  
-- Desde aquí, tendrás acceso a todas las funcionalidades de la aplicación.  
-![alt text](image.png)
+### 🌟 Funcionalidades Principales  
 
-### 2️⃣ Ver la última medición de humedad  
-- Selecciona un dispositivo para ver detalles como la **última medición de humedad** y la fecha en la que se registró. 
+1. **Ver la última medición de humedad**.  
+   - Selecciona un sensor para obtener datos actualizados.  
+   ![Detalle del sensor](image-1.png)  
 
-  🔍 **Visualiza información detallada del sensor:**   
-   ![alt text](image-1.png)
+2. **Consultar el historial de mediciones**.  
+   - Explora los datos cronológicos de humedad.  
+   ![Historial de mediciones](image-2.png)  
 
-### 3️⃣ Consultar el historial de mediciones  
-- Accede al historial completo de mediciones realizadas por un sensor, ordenadas cronológicamente.  
-  📊 **Revisa cómo han variado las mediciones:**  
-    ![alt text](image-2.png)
+3. **Abrir y cerrar válvulas**.  
+   - Controla el flujo de agua con un clic.  
+   ![Control de válvulas](image-3.png)  
 
-### 4️⃣ Accionar las válvulas (abrir/cerrar)  
-- Usa los botones para **abrir** o **cerrar la válvula** asociada al sensor.  
-- Recibirás una confirmación en pantalla y el evento se registrará automáticamente en la base de datos.  
-  🚰 **Controla las válvulas de forma remota:**  
-   ![alt text](image-3.png)
-
-### 5️⃣ Registro automático en la base de datos  
-- Cada acción realizada (abrir/cerrar válvulas o registrar una medición) se almacena automáticamente en la base de datos.  
-  📂 **Consulta los registros en cualquier momento:**   
-   ![alt text](image-4.png)
-
----
-
-### 🚀 ¡Listo para usar!  
-Explora, experimenta y disfruta de la gestión de tus sensores y válvulas en tiempo real con esta herramienta interactiva.
-
+4. **Registro automático en la base de datos**.  
+   - Las acciones quedan almacenadas automáticamente.  
 
 ---
 
@@ -147,26 +144,24 @@ Explora, experimenta y disfruta de la gestión de tus sensores y válvulas en ti
 
 ## 📚 Contexto Académico  
 
-Este proyecto fue desarrollado como parte de la materia **"Desarrollo de Aplicaciones Multiplataforma"**, correspondiente a la **Especialización en Internet de las Cosas (IoT)** de la **Universidad de Buenos Aires (UBA), Argentina**.  
+Este proyecto forma parte de la materia **"Desarrollo de Aplicaciones Multiplataforma"**, dictada en la **Especialización en Internet de las Cosas (IoT)** de la **Universidad de Buenos Aires (UBA)**.  
 
-### Propósito  
-La finalidad del proyecto es implementar una solución funcional para el control y monitoreo de sensores y electroválvulas, integrando conceptos avanzados de desarrollo de software para IoT:  
+### 🌟 Propósito  
+- Implementar una solución de software completa para sensores y electroválvulas.  
+- Explorar tecnologías modernas como **Ionic**, **Angular**, **Node.js**, y **MySQL** en un contexto IoT.  
 
-- **Frontend interactivo y adaptable** con **Ionic** y **Angular**.  
-- **Backend eficiente** basado en **Node.js** con conexión a una base de datos relacional **MySQL**.  
-- **Simulación de datos** para sensores de humedad, combinada con operaciones en tiempo real.  
-
-### Docente  
+### 👨‍🏫 Docente  
 **Profesor:** Pedro Rosito  
 
-### Institución  
+### 🏫 Institución  
 **Universidad de Buenos Aires (UBA)**  
 **Facultad de Ingeniería**  
-![alt text](image-5.png)
+![Logo UBA](image-5.png)  
+
 ---
 
 ## 📄 Licencia  
 
 Este proyecto está bajo la licencia **[MIT](https://choosealicense.com/licenses/mit/)**. Consulta el archivo [LICENSE.md](LICENSE.md) para más detalles.  
 
---- 
+---
