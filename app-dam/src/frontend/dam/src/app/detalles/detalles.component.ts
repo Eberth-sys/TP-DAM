@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IonicModule, AlertController } from '@ionic/angular'; //Importo el componente de alerta.
+import { IonicModule, AlertController, ActionSheetController } from '@ionic/angular'; //Importo el componente de alerta.
 import { DispositivoService } from '../services/dispositivo.service';
 import { Dispositivo } from '../models/dispositivo.model';
 import { Router , RouterModule} from '@angular/router';
@@ -20,7 +20,8 @@ export class DetallesComponent implements OnInit {
   ultimaMedicion?: any // propieda de la func de ultima medici´on.
   historial: any[] = []; // Lista para el historial de mediciones recargado
 
-  constructor( private router: Router, private route: ActivatedRoute, private dispositivoService: DispositivoService, private alertController: AlertController ) {}
+  constructor( private router: Router, private route: ActivatedRoute, private dispositivoService: DispositivoService, private alertController: AlertController,
+    private actionSheetController: ActionSheetController ) {}
 
   // Función para volver a la pa´gina principal
   volverAlInicio() {
@@ -64,7 +65,7 @@ export class DetallesComponent implements OnInit {
   
         // Mostrar alerta  exitoso
         await this.presentAlert(
-          '', //Si lo boroo me da error.
+          '______________________________________________', 
           `La válvula ha sido "[${accion}]" exitosamente.`,
           `Humedad registrada: ${response.humedad}%`
         );
@@ -95,6 +96,37 @@ export class DetallesComponent implements OnInit {
     await alert.present();
   }
   
+  // Método para mostrar el Action Sheet
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Control de Válvula', // Título del Action Sheet
+      buttons: [
+        {
+          text: 'Abrir Válvula',
+          icon: 'water-outline',
+          handler: () => {
+            this.accionarValvula('Abierta'); // Llama a la función con la acción "Abrir"
+          },
+        },
+        {
+          text: 'Cerrar Válvula',
+          icon: 'lock-closed-outline',
+          handler: () => {
+            this.accionarValvula('Cerrada'); // Llama a la función con la acción "Cerrar"
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          icon: 'close-outline',
+        },
+      ],
+    });
+  
+    // Presenta el Action Sheet
+    await actionSheet.present();
+  }
+
   //Actualizar el historial de mediciones
   cargarHistorial() {
     this.dispositivoService.getHistorialMediciones(this.dispositivoId).subscribe({

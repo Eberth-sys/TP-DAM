@@ -1,0 +1,50 @@
+/* Estilo base para los ion-card */
+.custom-card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease; 
+    border-radius: 12px; /* Bordes redondeados */
+    cursor: pointer; 
+  }
+  
+  .custom-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-5px); 
+  }
+  
+  /* Estilos del toolbar y el título */
+  ion-toolbar {
+    --background: #3880ff; /* Fondo azul */
+    min-height: 56px; /* Altura mínima del toolbar */
+  }
+  
+  ion-title {
+    color: #ffffff; /* Texto blanco */
+    font-weight: bold; /* Negrita */
+    font-size: 40px; /* Tamaño del texto */
+  }
+
+/* Estilos personalizados para el ion-header */
+.custom-toolbar {
+    --background: var(--ion-color-primary); 
+    --color: #ffffff; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Línea divisora opcional */
+    text-align: center; /* Centrar el contenido */
+  }
+  
+  .custom-title {
+    font-size: 30px; 
+    font-weight: bold; 
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+  }
+  
+  .custom-toolbar-large {
+    --background: var(--ion-color-light); 
+    --color: var(--ion-color-dark); 
+  }
+  
+  .custom-title-large {
+    font-size: 25px; 
+    font-weight: bold; 
+    color: var(--ion-color-primary); /* Color principal del tema */
+    margin-top: 8px; /* Espacio superior */
+  }
+  
